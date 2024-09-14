@@ -12,4 +12,18 @@ public class Editorial {
 
     @Column(length = 80)
     private String nombre;
+
+    public Editorial() {}
+
+    public Editorial(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Editorial{" +
+                "editorialId=" + editorialId +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

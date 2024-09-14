@@ -23,10 +23,24 @@ public class Autor {
     @Column(length = 75)
     private String nacionalidad;
 
+    public Autor() {
+
+    }
+
     public Autor(String codAutor, String nombreAutor, String apellidoAutor, String nacionalidad) {
         this.codAutor = codAutor;
         this.nombreAutor = nombreAutor;
         this.apellidoAutor = apellidoAutor;
         this.nacionalidad = nacionalidad;
+    }
+
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "codAutor='" + codAutor + '\'' +
+                ", nombreAutor='" + nombreAutor + '\'' +
+                ", apellidoAutor='" + apellidoAutor + '\'' +
+                ", nacionalidad='" + nacionalidad + '\'' +
+                '}';
     }
 }

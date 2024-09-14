@@ -4,9 +4,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import tech.icei.model.Autor;
 import tech.icei.model.Editorial;
+import tech.icei.model.Libro;
 
-public class HibernateConfig {
-    public SessionFactory createSessionFactory() {
+public final class HibernateConfig {
+    public static SessionFactory createSessionFactory() {
         Configuration config = new Configuration();
         config.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
         config.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/libreriadb");
@@ -19,6 +20,7 @@ public class HibernateConfig {
 
         config.addAnnotatedClass(Autor.class);
         config.addAnnotatedClass(Editorial.class);
+        config.addAnnotatedClass(Libro.class);
 
         return config.buildSessionFactory();
     }
