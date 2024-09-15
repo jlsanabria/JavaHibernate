@@ -15,7 +15,7 @@ public class Libro {
     @Column(name = "numero_paginas")
     private Integer numeroPaginas;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_autor", nullable = false, foreignKey = @ForeignKey(name = "fk_libro_autor"))
     private Autor autor;
 

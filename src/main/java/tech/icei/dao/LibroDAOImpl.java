@@ -7,30 +7,34 @@ import tech.icei.config.HibernateConfig;
 import tech.icei.model.Libro;
 
 import java.util.List;
-import java.util.Objects;
 
 public class LibroDAOImpl implements LibroDAO {
-    // Instancia de la configuración de hibernate
-    SessionFactory factory = HibernateConfig.createSessionFactory();
-
+    private final SessionFactory factory;
     private Session session;
 
-    public LibroDAOImpl() {
-        //this.session = session;
-        // Sesion para realizar operaciones con la BD
+    public LibroDAOImpl(SessionFactory factory) {
+        this.factory = factory;
     }
 
+    /**
+     * Buscar un libro por código de libro
+     * @param codLibro
+     * @return
+     */
     @Override
     public Libro findByCode(String codLibro) {
         // HQL -->  Hibernate Query Language
         session = factory.openSession();
-        session.beginTransaction();
         Query<Libro> query = session.createQuery("from Libro where codLibro = :codLibro", Libro.class);
         query.setParameter("codLibro", codLibro);
-        session.close();
         return query.uniqueResult();
     }
 
+    /**
+     * Registrar un libro
+     * @param libro
+     * @return
+     */
     @Override
     public Libro create(Libro libro) {
         session = factory.openSession();
@@ -41,36 +45,56 @@ public class LibroDAOImpl implements LibroDAO {
         return libro;
     }
 
+    /**
+     * Listar todos los libros
+     * @return
+     */
     @Override
     public List<Libro> readAll() {
         session = factory.openSession();
-        session.beginTransaction();
         Query<Libro> query = session.createQuery("from Libro", Libro.class);
-        session = factory.openSession();
         return query.list();
     }
 
+    /**
+     * Actualizar un libro
+     * @param libro
+     * @return
+     */
     @Override
     public Libro update(Libro libro) {
         session = factory.openSession();
         session.beginTransaction();
         session.merge(libro);
         session.getTransaction().commit();
-        session = factory.openSession();
+        session.close();
         return libro;
     }
 
+    /**
+     * Eliminar un libro
+     * @param libro
+     */
     @Override
     public void delete(Libro libro) {
         session = factory.openSession();
         session.beginTransaction();
         session.remove(libro);
         session.getTransaction().commit();
-        session = factory.openSession();
+        session.close();
     }
 
+    /**
+     * Buscar un libro por títutlo
+     * @param titulo
+     * @return
+     */
     @Override
     public List<Libro> searchByTitle(String titulo) {
-        return List.of();
+        session = factory.openSession();
+        Query<Libro> query = session
+                .createQuery("from Libro where lower(titulo) like lower(:titulo)", Libro.class)
+                .setParameter("titulo", "%" + titulo + "%");
+        return query.list();
     }
 }

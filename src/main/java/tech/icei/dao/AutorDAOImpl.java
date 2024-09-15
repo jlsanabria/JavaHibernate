@@ -7,18 +7,12 @@ import tech.icei.config.HibernateConfig;
 import tech.icei.model.Autor;
 
 public class AutorDAOImpl implements AutorDAO {
-
-    SessionFactory factory = HibernateConfig.createSessionFactory();
-
+    private final SessionFactory factory;
     private Session session;
 
-    public AutorDAOImpl() {
+    public AutorDAOImpl(SessionFactory factory) {
+        this.factory = factory;
     }
-
-//    @Override
-//    public void setSession(Session session) {
-//        this.session = session;
-//    }
 
     @Override
     public Autor getAutor(String codigo) {

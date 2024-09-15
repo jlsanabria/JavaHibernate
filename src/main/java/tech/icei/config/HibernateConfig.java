@@ -16,7 +16,7 @@ public final class HibernateConfig {
         config.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect"); // Opcional
         config.setProperty("hibernate.hbm2ddl.auto", "update");
         config.setProperty("hibernate.show_sql", "true");
-        config.setProperty("hibernate.format_sql", "true");
+        //config.setProperty("hibernate.format_sql", "true");
 
         config.addAnnotatedClass(Autor.class);
         config.addAnnotatedClass(Editorial.class);

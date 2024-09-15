@@ -6,11 +6,11 @@ import tech.icei.config.HibernateConfig;
 import tech.icei.model.Editorial;
 
 public class EditorialDAOImpl implements EditorialDAO {
-    SessionFactory factory = HibernateConfig.createSessionFactory();
+    private final SessionFactory factory;
     private Session session;
 
-    public EditorialDAOImpl() {
-
+    public EditorialDAOImpl(SessionFactory factory) {
+        this.factory = factory;
     }
 
     @Override
